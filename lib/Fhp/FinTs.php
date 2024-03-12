@@ -485,9 +485,15 @@ class FinTs
                 $this->execute($action);
             }
         } else {
-            if (!$outstanding) {
-                throw new UnexpectedResponseException('Got neither 3956 nor HITAN with tanProzess=2');
-            }
+            if ($hitanProcessS && !$outstanding) {
+                // Process the response normally, and maybe keep going for more pages.
+				$this->processActionResponse($action, $response->filterByReferenceSegments($action->getRequestSegmentNumbers()));
+				if ($action instanceof PaginateableAction && $action->hasMorePages()) {
+					$this->execute($action);
+				}
+            } elseif(!$outstanding) {
+				throw new UnexpectedResponseException('Got neither 3956 nor HITAN with tanProzess=2');
+			}
             $action->setTanRequest($hitanProcessS);
         }
         return $isSuccess;
