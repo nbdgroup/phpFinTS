@@ -65,9 +65,9 @@ class StatementOfAccount
      * @return StatementOfAccount A new instance that contains the given data.
      */
     public static function fromMT940Array(array $array): StatementOfAccount
-    {
+    {\file_put_contents(__DIR__.'/output.json',\json_encode($array));
         $result = new StatementOfAccount();
-        foreach ($array as $date => $statement) {dump($statement);
+        foreach ($array as $date => $statement) {
             if ($result->hasStatementForDate($date)) {
                 $statementModel = $result->getStatementForDate($date);
             } else {
