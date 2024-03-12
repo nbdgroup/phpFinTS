@@ -67,7 +67,7 @@ class StatementOfAccount
     public static function fromMT940Array(array $array): StatementOfAccount
     {
         $result = new StatementOfAccount();
-        foreach ($array as $date => $statement) {
+        foreach ($array as $date => $statement) {dump($statement);
             if ($result->hasStatementForDate($date)) {
                 $statementModel = $result->getStatementForDate($date);
             } else {
