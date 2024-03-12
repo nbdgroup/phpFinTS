@@ -65,7 +65,7 @@ class StatementOfAccount
      * @return StatementOfAccount A new instance that contains the given data.
      */
     public static function fromMT940Array(array $array): StatementOfAccount
-    {\file_put_contents(__DIR__.'/output.json',\json_encode($array));
+    {
         $result = new StatementOfAccount();
         foreach ($array as $date => $statement) {
             if ($result->hasStatementForDate($date)) {
@@ -73,9 +73,9 @@ class StatementOfAccount
             } else {
                 $statementModel = new Statement();
                 $statementModel->setDate(static::parseDate($date));
-                $statementModel->setStartBalance((float) $statement['start_balance']['amount']);
-                $statementModel->setEndBalance(isset($statement['end_balance']) ? ((float) $statement['end_balance']['amount']) : 0);
-                $statementModel->setCreditDebit($statement['start_balance']['credit_debit']);
+                $statementModel->setStartBalance(isset($statement['start_balance']) ? ((float) $statement['start_balance']['amount']) : 0);
+                $statementModel->setEndBalance(isset($statement['end_balance']) ? ((float) $statement['end_balance']['amount']) : ((float) $statement['start_balance']['amount']));
+                $statementModel->setCreditDebit(isset($statement['end_balance']) ? $statement['end_balance']['credit_debit'] : $statement['start_balance']['credit_debit']);
                 $result->statements[] = $statementModel;
             }
 
