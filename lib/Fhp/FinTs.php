@@ -486,6 +486,8 @@ class FinTs
             }
         } else {
             if ($hitanProcessS && !$outstanding) {
+				$isSuccess = true;
+				$action->setTanRequest(null);
                 // Process the response normally, and maybe keep going for more pages.
 				$this->processActionResponse($action, $response->filterByReferenceSegments($action->getRequestSegmentNumbers()));
 				if ($action instanceof PaginateableAction && $action->hasMorePages()) {
