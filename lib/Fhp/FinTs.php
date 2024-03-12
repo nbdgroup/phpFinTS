@@ -496,7 +496,7 @@ class FinTs
             } elseif(!$outstanding) {
 				throw new UnexpectedResponseException('Got neither 3956 nor HITAN with tanProzess=2');
 			}
-            $action->setTanRequest($hitanProcessS);
+            //$action->setTanRequest($hitanProcessS);
         }
         return $isSuccess;
     }
