@@ -73,9 +73,8 @@ class StatementOfAccount
             } else {
                 $statementModel = new Statement();
                 $statementModel->setDate(static::parseDate($date));
-                $statementModel->setStartBalance(isset($statement['start_balance']) ? ((float) $statement['start_balance']['amount']) : 0);
-                $statementModel->setEndBalance(isset($statement['end_balance']) ? ((float) $statement['end_balance']['amount']) : ((float) $statement['start_balance']['amount']));
-                $statementModel->setCreditDebit(isset($statement['end_balance']) ? $statement['end_balance']['credit_debit'] : $statement['start_balance']['credit_debit']);
+                if(isset($statement['start_balance'])) { $statementModel->setStartBalance((float) $statement['start_balance']['amount'])->setCreditDebit($statement['start_balance']['credit_debit']); }
+                if(isset($statement['end_balance'])) { $statementModel->setEndBalance((float) $statement['end_balance']['amount'])->setCreditDebit($statement['end_balance']['credit_debit']); }
                 $result->statements[] = $statementModel;
             }
 
