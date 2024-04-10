@@ -161,7 +161,7 @@ class SendSEPADirectDebit extends BaseAction
 
         if (!$useSingleDirectDebit) {
             if ($hidxes->getParameter()->einzelbuchungErlaubt) {
-                $hkdxe->einzelbuchungGewuenscht = false;
+                $hkdxe->einzelbuchungGewuenscht = true;
             }
 
             /* @var HIDMESv1 $hidxes */
