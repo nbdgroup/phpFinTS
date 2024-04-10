@@ -159,11 +159,11 @@ class SendSEPADirectDebit extends BaseAction
         $hkdxe->sepaDescriptor = $this->painNamespace;
         $hkdxe->sepaPainMessage = new Bin($this->painMessage);
 
-        if (!$useSingleDirectDebit) {
-            if ($hidxes->getParameter()->einzelbuchungErlaubt) {
-                $hkdxe->einzelbuchungGewuenscht = true;
-            }
+		if ($hidxes->getParameter()->einzelbuchungErlaubt) {
+			$hkdxe->einzelbuchungGewuenscht = true;
+		}
 
+        if (!$useSingleDirectDebit) {
             /* @var HIDMESv1 $hidxes */
             // Just always send the control sum
             // if ($hidxes->getParameter()->summenfeldBenoetigt) {
